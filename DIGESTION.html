@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système Digestif & Aliments - Cours Complet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES GLOBALES ===== */
+        :root {
+            /* Couleurs thématiques digestion */
+            --primary-color: #1a5f7a;
+            --secondary-color: #159895;
+            --accent-color: #57c5b6;
+            --light-color: #e8f4f8;
+            --dark-color: #0f4c5c;
+            
+            /* Couleurs pour les types d'aliments */
+            --glucides-color: #ff9f43;
+            --lipides-color: #ee5a24;
+            --protides-color: #00b894;
+            --mineraux-color: #6c5ce7;
+            --vitamines-color: #fd79a8;
+            --eau-color: #0984e3;
+            
+            /* Variables d'interface */
+            --radius: 12px;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        /* ===== RESET ET STYLES GÉNÉRAUX ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fdff 0%, #f0f8ff 100%);
+            color: #333;
+            line-height: 1.8;
+            padding-bottom: 50px;
+            counter-reset: section subsection experiment;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        /* ===== EN-TÊTE PRINCIPALE ===== */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 0;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .main-title {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* ===== NAVIGATION PAR SECTIONS ===== */
+        .section-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--light-color);
+        }
+        
+        .nav-btn {
+            padding: 16px 28px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 250px;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(26, 95, 122, 0.3);
+        }
+        
+        .nav-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* ===== SECTIONS DE CONTENU ===== */
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            padding: 45px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border-top: 8px solid var(--primary-color);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-header {
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid var(--light-color);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+        }
+        
+        /* ===== TITRES ET SOUS-TITRES ===== */
+        h2 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin: 35px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+            counter-increment: section;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: counter(section) ".";
+            background: var(--secondary-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin: 30px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid var(--primary-color);
+            counter-increment: subsection;
+        }
+        
+        h3::before {
+            content: counter(section) "." counter(subsection) ".";
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* ===== TYPOGRAPHIE ===== */
+        p {
+            margin-bottom: 20px;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            text-align: justify;
+        }
+        
+        .lead {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            background: var(--light-color);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            margin: 25px 0;
+        }
+        
+        /* ===== TABLEAUX SCIENTIFIQUES ===== */
+        .scientific-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .scientific-table th {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .scientific-table th:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .scientific-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        
+        .scientific-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .scientific-table tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .table-caption {
+            caption-side: bottom;
+            padding: 15px;
+            font-style: italic;
+            color: #666;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        /* ===== BOÎTES SPÉCIALES ===== */
+        .experiment-box {
+            background: linear-gradient(135deg, #fffbf0 0%, #fff8e1 100%);
+            border: 3px solid #ffcc00;
+            padding: 30px;
+            margin: 35px 0;
+            border-radius: 10px;
+            position: relative;
+            counter-increment: experiment;
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.1);
+        }
+        
+        .experiment-box::before {
+            content: "EXPÉRIENCE " counter(experiment);
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #ffcc00;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, var(--light-color) 0%, #e0f0f8 100%);
+            border-left: 6px solid var(--primary-color);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #f0fff0 0%, #e8f8e8 100%);
+            border-left: 5px solid #32cd32;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e0f0ff 100%);
+            border: 3px solid var(--secondary-color);
+            padding: 30px;
+            margin: 35px 0;
+            border-radius: 10px;
+        }
+        
+        /* ===== ÉLÉMENTS VISUELS ===== */
+        .chemical-reaction {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+            padding: 25px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border: 2px dashed #a0a0ff;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .reactant, .product {
+            padding: 18px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .reaction-arrow {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            padding: 0 15px;
+        }
+        
+        .enzyme-note {
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* ===== CARDS POUR TYPES D'ALIMENTS ===== */
+        .nutrient-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .nutrient-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nutrient-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .nutrient-card.glucides {
+            border-top-color: var(--glucides-color);
+        }
+        
+        .nutrient-card.lipides {
+            border-top-color: var(--lipides-color);
+        }
+        
+        .nutrient-card.protides {
+            border-top-color: var(--protides-color);
+        }
+        
+        .nutrient-card.mineraux {
+            border-top-color: var(--mineraux-color);
+        }
+        
+        .nutrient-card.vitamines {
+            border-top-color: var(--vitamines-color);
+        }
+        
+        .nutrient-card.eau {
+            border-top-color: var(--eau-color);
+        }
+        
+        .nutrient-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .nutrient-card.glucides .nutrient-icon {
+            background: var(--glucides-color);
+        }
+        
+        .nutrient-card.lipides .nutrient-icon {
+            background: var(--lipides-color);
+        }
+        
+        .nutrient-card.protides .nutrient-icon {
+            background: var(--protides-color);
+        }
+        
+        .nutrient-card.mineraux .nutrient-icon {
+            background: var(--mineraux-color);
+        }
+        
+        .nutrient-card.vitamines .nutrient-icon {
+            background: var(--vitamines-color);
+        }
+        
+        .nutrient-card.eau .nutrient-icon {
+            background: var(--eau-color);
+        }
+        
+        .nutrient-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        /* ===== DIAGRAMME DE DIGESTION ===== */
+        .digestion-timeline {
+            position: relative;
+            margin: 50px 0;
+            padding: 30px 0;
+        }
+        
+        .digestion-timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50px;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        .timeline-step {
+            position: relative;
+            margin-bottom: 50px;
+            padding-left: 100px;
+        }
+        
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-marker {
+            position: absolute;
+            left: 38px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 5px solid white;
+            box-shadow: 0 0 0 3px var(--secondary-color);
+            z-index: 2;
+        }
+        
+        .step-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .step-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* ===== FORMULES ET ÉQUATIONS ===== */
+        .formula-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #6c757d;
+            font-family: 'Cambria', 'Times New Roman', serif;
+            text-align: center;
+            font-size: 1.3rem;
+            overflow-x: auto;
+        }
+        
+        /* ===== HIGHLIGHT ET KEYWORDS ===== */
+        .highlight {
+            background: linear-gradient(120deg, #fffacd 0%, #fffacd 50%, #fff8dc 100%);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #333;
+            border-left: 3px solid #ffcc00;
+        }
+        
+        .keyword {
+            color: var(--primary-color);
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-color);
+            text-underline-offset: 5px;
+        }
+        
+        /* ===== LISTES ===== */
+        ul, ol {
+            margin-left: 40px;
+            margin-bottom: 25px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        ul li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            font-size: 1.2rem;
+        }
+        
+        /* ===== BOUTONS D'ACTION ===== */
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+        }
+        
+        /* ===== PIED DE PAGE ===== */
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1100px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-nav {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                min-width: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .main-header {
+                padding: 40px 0;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .header-icon {
+                width: 90px;
+                height: 90px;
+                font-size: 3rem;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            .nutrient-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .scientific-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .digestion-timeline::before {
+                left: 25px;
+            }
+            
+            .timeline-step {
+                padding-left: 70px;
+            }
+            
+            .step-marker {
+                left: 13px;
+            }
+            
+            .chemical-reaction {
+                flex-direction: column;
+            }
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-on-hover:hover {
+            animation: pulse 1s infinite;
+        }
+        
+        /* ===== BARRE DE PROGRESSION ===== */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1001;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre de progression -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- En-tête principal -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-stomach"></i>
+                </div>
+                <h1 class="main-title">SYSTÈME DIGESTIF & ALIMENTS</h1>
+                <p class="subtitle">Cours complet sur la composition des aliments et les mécanismes de la digestion humaine</p>
+                <p class="subtitle">De la bouche à l'intestin grêle : transformations mécaniques et chimiques des aliments</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Navigation par sections -->
+        <nav class="section-nav">
+            <button class="nav-btn active" data-section="aliments">
+                <i class="fas fa-apple-alt"></i>
+                <span>COMPOSITION DES ALIMENTS</span>
+            </button>
+            <button class="nav-btn" data-section="digestion">
+                <i class="fas fa-exchange-alt"></i>
+                <span>PROCESSUS DIGESTIF</span>
+            </button>
+            <button class="nav-btn" data-section="enzymes">
+                <i class="fas fa-vial"></i>
+                <span>ENZYMES DIGESTIVES</span>
+            </button>
+            <button class="nav-btn" data-section="absorption">
+                <i class="fas fa-arrow-down"></i>
+                <span>ABSORPTION INTESTINALE</span>
+            </button>
+        </nav>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 1 : COMPOSITION DES ALIMENTS -->
+        <!-- ============================================ -->
+        <section id="aliments" class="content-section active">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fas fa-apple-alt"></i>
+                    COMPOSITION CHIMIQUE DES ALIMENTS
+                </h1>
+                <p class="lead">
+                    Les aliments sont des mélanges complexes de substances organiques et minérales qui fournissent l'énergie et les matériaux nécessaires au fonctionnement de l'organisme.
+                </p>
+            </div>
+            
+            <h2><i class="fas fa-flask"></i> Analyse Qualitative des Aliments</h2>
+            
+            <div class="experiment-box">
+                <h3>Expérience : Analyse comparée du pain et du lait</h3>
+                <p><strong>Objectif :</strong> Identifier les différents constituants organiques et minéraux de deux aliments de base à l'aide de tests chimiques spécifiques.</p>
+                
+                <table class="scientific-table">
+                    <thead>
+                        <tr>
+                            <th>Constituant</th>
+                            <th>Test utilisé</th>
+                            <th>Réactif</th>
+                            <th>Résultat positif</th>
+                            <th>Pain</th>
+                            <th>Lait</th>
+                            <th>Interprétation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Eau</strong></td>
+                            <td>Chauffage</td>
+                            <td>-</td>
+                            <td>Buée + gouttelettes</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Présence d'eau libre</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ions chlorure</strong></td>
+                            <td>Précipitation</td>
+                            <td>AgNO₃</td>
+                            <td>Précipité blanc → noir</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Présence de Cl⁻ (Ag⁺ + Cl⁻ → AgCl↓)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ions calcium</strong></td>
+                            <td>Précipitation</td>
+                            <td>(NH₄)₂C₂O₄</td>
+                            <td>Précipité blanc</td>
+                            <td>✅ faible</td>
+                            <td>✅ fort</td>
+                            <td>Présence de Ca²⁺ (Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glucose</strong></td>
+                            <td>Réduction Fehling</td>
+                            <td>Liqueur de Fehling</td>
+                            <td>Précipité rouge brique</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Présence de sucres réducteurs (glucose, lactose)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amidon</strong></td>
+                            <td>Test iode</td>
+                            <td>Lugol (I₂ + KI)</td>
+                            <td>Bleu-violacé</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>Complexe amylose-iode</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protéines</strong></td>
+                            <td>Xanthoprotéique</td>
+                            <td>HNO₃ conc.</td>
+                            <td>Coloration jaune</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Présence d'acides aminés aromatiques</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lipides</strong></td>
+                            <td>Tache de gras</td>
+                            <td>Papier sulfurisé</td>
+                            <td>Tache translucide</td>
+                            <td>✅ faible</td>
+                            <td>✅ fort</td>
+                            <td>Imperméabilisation du papier</td>
+                        </tr>
+                    </tbody>
+                    <caption class="table-caption">Tableau 1 : Tests qualitatifs des constituants alimentaires</caption>
+                </table>
+                
+                <div class="result-box">
+                    <h4>Résultats et conclusions :</h4>
+                    <ul>
+                        <li><span class="highlight">Le pain contient</span> : eau, sels de chlorure, calcium (faible), glucose, amidon (abondant), protéines, lipides (faible).</li>
+                        <li><span class="highlight">Le lait contient</span> : eau (87%), sels de chlorure, calcium (abondant), lactose (sucre réducteur), pas d'amidon, protéines (caséine), lipides (3-4%).</li>
+                        <li><span class="highlight">Conclusion</span> : Ce sont des <span class="keyword">aliments composés</span> contenant plusieurs types de nutriments.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-balance-scale"></i> Composition Quantitative des Aliments</h2>
+            
+            <table class="scientific-table">
+                <thead>
+                    <tr>
+                        <th>Aliment (100g)</th>
+                        <th>Énergie (kJ)</th>
+                        <th>Eau (g)</th>
+                        <th>Glucides (g)</th>
+                        <th>Protides (g)</th>
+                        <th>Lipides (g)</th>
+                        <th>Calcium (mg)</th>
+                        <th>Fer (mg)</th>
+                        <th>Vitamine C (mg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pain complet</strong></td>
+                        <td>1050</td>
+                        <td>36.0</td>
+                        <td>50.0</td>
+                        <td>8.0</td>
+                        <td>1.2</td>
+                        <td>50</td>
+                        <td>2.5</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lait entier 3.5%</strong></td>
+                        <td>270</td>
+                        <td>87.5</td>
+                        <td>4.8</td>
+                        <td>3.5</td>
+                        <td>3.5</td>
+                        <td>125</td>
+                        <td>0.1</td>
+                        <td>1.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Viande de bœuf</strong></td>
+                        <td>720</td>
+                        <td>70.0</td>
+                        <td>0.0</td>
+                        <td>20.0</td>
+                        <td>10.0</td>
+                        <td>10</td>
+                        <td>2.5</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Œuf entier</strong></td>
+                        <td>630</td>
+                        <td>75.0</td>
+                        <td>0.7</td>
+                        <td>12.5</td>
+                        <td>11.0</td>
+                        <td>56</td>
+                        <td>1.9</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sardine</strong></td>
+                        <td>920</td>
+                        <td>63.0</td>
+                        <td>0.0</td>
+                        <td>24.0</td>
+                        <td>13.5</td>
+                        <td>400</td>
+                        <td>1.5</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pomme fraîche</strong></td>
+                        <td>220</td>
+                        <td>85.0</td>
+                        <td>12.0</td>
+                        <td>0.3</td>
+                        <td>0.2</td>
+                        <td>6</td>
+                        <td>0.3</td>
+                        <td>12</td>
+                    </tr>
+                </tbody>
+                <caption class="table-caption">Tableau 2 : Composition nutritionnelle détaillée (valeurs pour 100g d'aliment)</caption>
+            </table>
+            
+            <div class="definition-box">
+                <h3>Définitions fondamentales</h3>
+                <p><span class="keyword">Aliment simple :</span> Substance composée essentiellement d'une seule catégorie de nutriments (ex: sucre = glucides purs, huile = lipides purs, sel = minéral pur).</p>
+                <p><span class="keyword">Aliment composé :</span> Substance contenant au moins deux aliments simples combinés (ex: pain = amidon + gluten + eau, lait = lactose + caséine + lipides).</p>
+                <p><span class="keyword">Macronutriments :</span> Glucides, lipides, protides - fournissent énergie et matériaux de construction.</p>
+                <p><span class="keyword">Micronutriments :</span> Vitamines, minéraux - nécessaires en petites quantités pour réguler le métabolisme.</p>
+            </div>
+            
+            <h2><i class="fas fa-cubes"></i> Types de Nutriments</h2>
+            
+            <div class="nutrient-cards">
+                <div class="nutrient-card glucides">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3 class="nutrient-title">GLUCIDES</h3>
+                    <p><strong>Fonction :</strong> Énergie immédiate (4 kcal/g)</p>
+                    <p><strong>Types :</strong> Sucres simples (glucose, fructose), complexes (amidon, cellulose)</p>
+                    <p><strong>Sources :</strong> Pain, pâtes, riz, fruits, légumes, sucre</p>
+                    <p><strong>Digestion :</strong> Hydrolysés en monosaccharides (glucose)</p>
+                </div>
+                
+                <div class="nutrient-card lipides">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h3 class="nutrient-title">LIPIDES</h3>
+                    <p><strong>Fonction :</strong> Énergie de réserve (9 kcal/g), isolation, hormones</p>
+                    <p><strong>Types :</strong> Triglycérides, phospholipides, stéroïdes</p>
+                    <p><strong>Sources :</strong> Huiles, beurre, viandes grasses, noix</p>
+                    <p><strong>Digestion :</strong> Émulsifiés puis hydrolysés en acides gras + glycérol</p>
+                </div>
+                
+                <div class="nutrient-card protides">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3 class="nutrient-title">PROTIDES (PROTÉINES)</h3>
+                    <p><strong>Fonction :</strong> Structure (muscles, enzymes, anticorps) (4 kcal/g)</p>
+                    <p><strong>Composition :</strong> Chaînes d'acides aminés (20 types)</p>
+                    <p><strong>Sources :</strong> Viandes, poissons, œufs, légumineuses, lait</p>
+                    <p><strong>Digestion :</strong> Hydrolysées en acides aminés individuels</p>
+                </div>
+                
+                <div class="nutrient-card mineraux">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="nutrient-title">SELS MINÉRAUX</h3>
+                    <p><strong>Fonction :</strong> Structure (os, dents), équilibre ionique, enzymes</p>
+                    <p><strong>Exemples :</strong> Calcium (os), Fer (sang), Sodium (équilibre hydrique)</p>
+                    <p><strong>Sources :</strong> Lait, légumes verts, viande rouge, sel</p>
+                    <p><strong>Absorption :</strong> Directe (pas de digestion nécessaire)</p>
+                </div>
+                
+                <div class="nutrient-card vitamines">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3 class="nutrient-title">VITAMINES</h3>
+                    <p><strong>Fonction :</strong> Coenzymes, antioxydants, régulation métabolique</p>
+                    <p><strong>Types :</strong> Hydrosolubles (B, C), liposolubles (A, D, E, K)</p>
+                    <p><strong>Sources :</strong> Fruits, légumes, produits animaux, soleil (D)</p>
+                    <p><strong>Absorption :</strong> Directe (avec les graisses pour liposolubles)</p>
+                </div>
+                
+                <div class="nutrient-card eau">
+                    <div class="nutrient-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 class="nutrient-title">EAU</h3>
+                    <p><strong>Fonction :</strong> Solvant universel, transport, thermorégulation, réactions</p>
+                    <p><strong>Proportion corporelle :</strong> 60-70% du poids corporel</p>
+                    <p><strong>Sources :</strong> Boissons, aliments (fruits 80-95%, lait 87%)</p>
+                    <p><strong>Absorption :</strong> Osmose tout au long du tube digestif</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 2 : PROCESSUS DIGESTIF -->
+        <!-- ============================================ -->
+        <section id="digestion" class="content-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fas fa-exchange-alt"></i>
+                    PROCESSUS DIGESTIF COMPLET
+                </h1>
+                <p class="lead">
+                    La digestion transforme les aliments complexes en nutriments simples assimilables. Ce processus combine des actions mécaniques (fragmentation) et chimiques (hydrolyse enzymatique) sur toute la longueur du tube digestif.
+                </p>
+            </div>
+            
+            <h2><i class="fas fa-history"></i> Découvertes Historiques</h2>
+            
+            <div class="experiment-box">
+                <h3>Expérience de Réaumur (1752)</h3>
+                <p><strong>Protocole :</strong> Faire avaler à une buse un tube métallique ouvert contenant de la viande, puis observer après régurgitation.</p>
+                <p><strong>Observation :</strong> Le tube est intact mais la viande est transformée en bouillie.</p>
+                <p><strong>Conclusion :</strong> La digestion n'est pas un phénomène purement mécanique (aucune trace de frottement), mais implique des substances chimiques.</p>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>Expérience de Spallanzani (1780)</h3>
+                <p><strong>Protocole :</strong> Placer de la viande dans deux tubes, ajouter du suc gastrique dans l'un seulement, maintenir à 37°C pendant 3 jours.</p>
+                <p><strong>Observation :</strong> La viande avec suc gastrique est liquéfiée, l'autre est intacte.</p>
+                <p><strong>Conclusion :</strong> La digestion est un phénomène chimique nécessitant des substances spécifiques (enzymes) présentes dans les sucs digestifs.</p>
+            </div>
+            
+            <h2><i class="fas fa-road"></i> Parcours Digestif : De la Bouche à l'Intestin</h2>
+            
+            <div class="digestion-timeline">
+                <div class="timeline-step">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">
+                            <i class="fas fa-teeth"></i> BOUCHE (Cavité buccale)
+                        </h3>
+                        <p><strong>Actions mécaniques :</strong> Mastication par les dents (incisives, canines, molaires), brassage par la langue.</p>
+                        <p><strong>Sécrétions :</strong> Salive (1-1.5 L/jour) des glandes salivaires (parotides, sublinguales, submandibulaires).</p>
+                        <p><strong>Digestion chimique :</strong> Amylase salivaire hydrolyse l'amidon en maltose.</p>
+                        
+                        <div class="chemical-reaction">
+                            <div class="reactant">Amidon + H₂O</div>
+                            <div class="reaction-arrow">Amylase salivaire (pH 6.8, 37°C)</div>
+                            <div class="product">Maltose + Dextrines</div>
+                        </div>
+                        <p class="enzyme-note">30% de l'amidon est hydrolysé dans la bouche</p>
+                        
+                        <p><strong>Formation :</strong> Bol alimentaire (mélange homogène saliva + aliments fragmentés).</p>
+                        <p><strong>Durée :</strong> 15-30 secondes par bouchée.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">
+                            <i class="fas fa-pipe"></i> ŒSOPHAGE
+                        </h3>
+                        <p><strong>Fonction :</strong> Conduit reliant la bouche à l'estomac (25 cm chez l'adulte).</p>
+                        <p><strong>Mécanisme :</strong> Péristaltisme (ondes de contraction musculaire involontaire).</p>
+                        <p><strong>Temps de transit :</strong> 5-10 secondes.</p>
+                        <p><strong>Particularité :</strong> Pas de digestion chimique, seulement un transport actif.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">
+                            <i class="fas fa-stomach"></i> ESTOMAC
+                        </h3>
+                        <p><strong>Structure :</strong> Poche musculaire de 1-1.5 L de capacité.</p>
+                        <p><strong>Sécrétions :</strong> Suc gastrique (2 L/jour) contenant :
+                            <ul>
+                                <li><span class="highlight">HCl</span> (pH 1.5-3.5) : activation enzymes, dénaturation protéines, action antibactérienne</li>
+                                <li><span class="highlight">Pepsine</span> : enzyme protéolytique (découpe protéines)</li>
+                                <li><span class="highlight">Lipase gastrique</span> : début digestion lipides</li>
+                                <li><span class="highlight">Facteur intrinsèque</span> : nécessaire absorption vitamine B12</li>
+                            </ul>
+                        </p>
+                        
+                        <div class="chemical-reaction">
+                            <div class="reactant">Protéines + H₂O</div>
+                            <div class="reaction-arrow">Pepsine (pH 1.5-2.5, 37°C)</div>
+                            <div class="product">Polypeptides + Peptides courts</div>
+                        </div>
+                        
+                        <p><strong>Actions mécaniques :</strong> Péristaltisme intense (brassage, mélange).</p>
+                        <p><strong>Produit :</strong> Chyme (bouillie acide semi-liquide).</p>
+                        <p><strong>Temps de séjour :</strong> 2-4 heures (selon composition).</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-marker"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">
+                            <i class="fas fa-long-arrow-alt-down"></i> INTESTIN GRÊLE
+                        </h3>
+                        <p><strong>Structure :</strong> Tube de 6-7 m de long, divisé en :
+                            <ul>
+                                <li><span class="highlight">Duodénum</span> (25 cm) : digestion chimique intensive</li>
+                                <li><span class="highlight">Jéjunum</span> (2.5 m) : absorption principale</li>
+                                <li><span class="highlight">Iléon</span> (3.5 m) : absorption fin, vitamine B12, sels biliaires</li>
+                            </ul>
+                        </p>
+                        
+                        <p><strong>Sécrétions digestives :</strong></p>
+                        <table class="scientific-table">
+                            <thead>
+                                <tr>
+                                    <th>Suc</th>
+                                    <th>Origine</th>
+                                    <th>Volume (L/j)</th>
+                                    <th>Principaux composants</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Pancréatique</strong></td>
+                                    <td>Pancréas</td>
+                                    <td>1.5-2</td>
+                                    <td>Amylase, Trypsine, Chymotrypsine, Lipase, Bicarbonates</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Biliaire</strong></td>
+                                    <td>Foie (vésicule)</td>
+                                    <td>0.5-1</td>
+                                    <td>Sels biliaires (émulsification lipides), Bicarbonates, Bilirubine</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intestinal</strong></td>
+                                    <td>Glandes intestinales</td>
+                                    <td>1-2</td>
+                                    <td>Maltase, Lactase, Sucrase, Peptidases, Entérokinase</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <p><strong>Digestion terminale :</strong> Transformation complète en nutriments simples :
+                            <ul>
+                                <li><span class="highlight">Glucides</span> → Glucose, Fructose, Galactose</li>
+                                <li><span class="highlight">Protéines</span> → Acides aminés (20 types)</li>
+                                <li><span class="highlight">Lipides</span> → Acides gras + Glycérol</li>
+                            </ul>
+                        </p>
+                        
+                        <p><strong>Temps de transit :</strong> 3-6 heures.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-chart-bar"></i> Tableau Synthèse des Transformations</h2>
+            
+            <table class="scientific-table">
+                <thead>
+                    <tr>
+                        <th>Organe</th>
+                        <th>Action mécanique</th>
+                        <th>Enzymes principales</th>
+                        <th>pH optimal</th>
+                        <th>Substrats digérés</th>
+                        <th>Produits formés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bouche</strong></td>
+                        <td>Mastication, brassage</td>
+                        <td>Amylase salivaire</td>
+                        <td>6.5-7.5</td>
+                        <td>Amidon</td>
+                        <td>Maltose (30%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estomac</strong></td>
+                        <td>Brassage, mélange</td>
+                        <td>Pepsine, Lipase gastrique</td>
+                        <td>1.5-3.5</td>
+                        <td>Protéines, Lipides (début)</td>
+                        <td>Polypeptides, Acides gras courts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Duodénum</strong></td>
+                        <td>Péristaltisme</td>
+                        <td>Amylase pancréatique, Trypsine, Lipase</td>
+                        <td>7.5-8.5</td>
+                        <td>Amidon, Protéines, Lipides</td>
+                        <td>Maltose, Peptides, Acides gras + Glycérol</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jéjunum/Iléon</strong></td>
+                        <td>Segmentation, péristaltisme</td>
+                        <td>Maltase, Lactase, Peptidases</td>
+                        <td>7.0-8.0</td>
+                        <td>Maltose, Lactose, Peptides</td>
+                        <td>Glucose, Galactose, Acides aminés</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 3 : ENZYMES DIGESTIVES -->
+        <!-- ============================================ -->
+        <section id="enzymes" class="content-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fas fa-vial"></i>
+                    ENZYMES DIGESTIVES : CATALYSEURS BIOLOGIQUES
+                </h1>
+                <p class="lead">
+                    Les enzymes digestives sont des protéines spécialisées qui accélèrent (catalysent) l'hydrolyse des macromolécules alimentaires en monomères assimilables. Chaque enzyme est spécifique d'un substrat et agit dans des conditions optimales de pH et température.
+                </p>
+            </div>
+            
+            <h2><i class="fas fa-atom"></i> Propriétés Générales des Enzymes</h2>
+            
+            <div class="definition-box">
+                <h3>Définition d'une enzyme</h3>
+                <p>Une <span class="keyword">enzyme</span> est une protéine qui catalyse une réaction biochimique spécifique en abaissant son énergie d'activation, sans être consommée ni modifiée de façon permanente.</p>
+                <p><strong>Caractéristiques :</strong></p>
+                <ul>
+                    <li><span class="highlight">Spécificité</span> : Une enzyme ne reconnaît qu'un substrat (ou groupe de substrats) spécifique</li>
+                    <li><span class="highlight">Réversibilité</span> : Les réactions enzymatiques sont théoriquement réversibles (équilibre)</li>
+                    <li><span class="highlight">Régulation</span> : Activité contrôlée par pH, température, inhibiteurs, activateurs</li>
+                    <li><span class="highlight">Recyclabilité</span> : Une molécule d'enzyme peut catalyser de nombreuses réactions successives</li>
+                </ul>
+            </div>
+            
+            <div class="experiment-box">
+                <h3>Expérience : Action de l'amylase salivaire sur l'amidon</h3>
+                <p><strong>Protocole :</strong> Deux tubes contenant de l'empois d'amidon. Tube 1 : amidon seul (témoin). Tube 2 : amidon + salive. Incubation à 37°C pendant 20 minutes. Tests avec Lugol (amidon) et Fehling (sucres réducteurs).</p>
+                
+                <table class="scientific-table">
+                    <thead>
+                        <tr>
+                            <th>Temps (min)</th>
+                            <th>Tube témoin (Lugol)</th>
+                            <th>Tube expérimental (Lugol)</th>
+                            <th>Tube témoin (Fehling)</th>
+                            <th>Tube expérimental (Fehling)</th>
+                            <th>Interprétation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Bleu intense</td>
+                            <td>Bleu intense</td>
+                            <td>Négatif</td>
+                            <td>Négatif</td>
+                            <td>Amidon présent, sucres absents</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Bleu intense</td>
+                            <td>Bleu moyen</td>
+                            <td>Négatif</td>
+                            <td>Faiblement positif</td>
+                            <td>Début d'hydrolyse</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Bleu intense</td>
+                            <td>Bleu pâle</td>
+                            <td>Négatif</td>
+                            <td>Positif net</td>
+                            <td>Hydrolyse significative</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>Bleu intense</td>
+                            <td>Incolore</td>
+                            <td>Négatif</td>
+                            <td>Précipité rouge brique</td>
+                            <td>Amidon totalement hydrolysé en maltose</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="conclusion-box">
+                    <h4>Conclusion :</h4>
+                    <p>L'amylase salivaire catalyse spécifiquement l'hydrolyse de l'amidon en maltose. L'activité est optimale à pH neutre (6.8) et température corporelle (37°C). L'enzyme est inactivée par l'acidité gastrique (pH < 4).</p>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-list"></i> Tableau des Enzymes Digestives</h2>
+            
+            <table class="scientific-table">
+                <thead>
+                    <tr>
+                        <th>Enzyme</th>
+                        <th>Origine</th>
+                        <th>pH optimal</th>
+                        <th>Substrat</th>
+                        <th>Produits</th>
+                        <th>Activation/Inhibition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Amylase salivaire</strong></td>
+                        <td>Glandes salivaires</td>
+                        <td>6.5-7.5</td>
+                        <td>Amidon, glycogène</td>
+                        <td>Maltose, dextrines</td>
+                        <td>Inactivée par pH < 4 (estomac)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pepsine</strong></td>
+                        <td>Estomac (pepsinogène + HCl)</td>
+                        <td>1.5-2.5</td>
+                        <td>Protéines</td>
+                        <td>Polypeptides, peptides</td>
+                        <td>Activation par HCl, inhibée par pH > 5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amylase pancréatique</strong></td>
+                        <td>Pancréas</td>
+                        <td>6.7-7.0</td>
+                        <td>Amidon, glycogène</td>
+                        <td>Maltose, maltotriose</td>
+                        <td>Nécessite ions chlorure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trypsine</strong></td>
+                        <td>Pancréas (trypsinogène)</td>
+                        <td>7.5-8.5</td>
+                        <td>Protéines, peptides</td>
+                        <td>Peptides plus courts</td>
+                        <td>Activation par entérokinase intestinale</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lipase pancréatique</strong></td>
+                        <td>Pancréas</td>
+                        <td>7.0-8.5</td>
+                        <td>Triglycérides</td>
+                        <td>Acides gras + monoglycérides</td>
+                        <td>Nécessite sels biliaires (émulsification)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maltase</strong></td>
+                        <td>Bordure en brosse (intestin)</td>
+                        <td>5.0-7.0</td>
+                        <td>Maltose</td>
+                        <td>2 Glucose</td>
+                        <td>Déficience = intolérance maltose</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lactase</strong></td>
+                        <td>Bordure en brosse (intestin)</td>
+                        <td>5.0-7.0</td>
+                        <td>Lactose</td>
+                        <td>Glucose + Galactose</td>
+                        <td>Diminue avec l'âge (intolérance lactose)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Peptidases</strong></td>
+                        <td>Bordure en brosse (intestin)</td>
+                        <td>7.0-8.0</td>
+                        <td>Peptides (2-6 AA)</td>
+                        <td>Acides aminés</td>
+                        <td>Spécifiques selon liaison peptidique</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2><i class="fas fa-project-diagram"></i> Cascade d'Activation Enzymatique</h2>
+            
+            <div class="process-diagram">
+                <div class="timeline-step">
+                    <div class="step-marker" style="background: var(--protides-color);"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">Activation du Pepsinogène</h3>
+                        <p><strong>Enzyme inactive :</strong> Pepsinogène (42 kDa, sécrété par cellules principales)</p>
+                        <p><strong>Activateur :</strong> HCl (pH < 3) retire un peptide inhibiteur (44 acides aminés)</p>
+                        <p><strong>Enzyme active :</strong> Pepsine (34 kDa)</p>
+                        <p><strong>Autocatalyse :</strong> Pepsine active clive d'autres molécules de pepsinogène</p>
+                        
+                        <div class="chemical-reaction">
+                            <div class="reactant">Pepsinogène + H⁺</div>
+                            <div class="reaction-arrow">Activation autocatalytique</div>
+                            <div class="product">Pepsine + Peptide inhibiteur</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="step-marker" style="background: var(--protides-color);"></div>
+                    <div class="step-content">
+                        <h3 class="step-title">Activation des Zymogènes Pancréatiques</h3>
+                        <p><strong>Étape 1 :</strong> Entérokinase intestinale clive le trypsinogène → trypsine active</p>
+                        <p><strong>Étape 2 :</strong> Trypsine active clive :
+                            <ul>
+                                <li>Chymotrypsinogène → chymotrypsine</li>
+                                <li>Proélastase → élastase</li>
+                                <li>Procarboxypeptidase → carboxypeptidase</li>
+                                <li>Autres molécules de trypsinogène (autocatalyse)</li>
+                            </ul>
+                        </p>
+                        
+                        <p><strong>Avantage :</strong> Protège le pancréas de l'auto-digestion (activation seulement dans l'intestin).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============================================ -->
+        <!-- SECTION 4 : ABSORPTION INTESTINALE -->
+        <!-- ============================================ -->
+        <section id="absorption" class="content-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <i class="fas fa-arrow-down"></i>
+                    ABSORPTION INTESTINALE
+                </h1>
+                <p class="lead">
+                    L'absorption intestinale est le passage des nutriments de la lumière intestinale vers le sang et la lymphe. Elle se produit principalement dans l'intestin grêle grâce à des adaptations structurales remarquables et des mécanismes de transport spécifiques.
+                </p>
+            </div>
+            
+            <h2><i class="fas fa-layer-group"></i> Anatomie Fonctionnelle de l'Intestin Grêle</h2>
+            
+            <div class="definition-box">
+                <h3>Adaptations augmentant la surface d'absorption</h3>
+                <p>L'intestin grêle présente une surface d'échange considérable (≈300 m²) grâce à :</p>
+                
+                <table class="scientific-table">
+                    <thead>
+                        <tr>
+                            <th>Structure</th>
+                            <th>Description</th>
+                            <th>Multiplicateur de surface</th>
+                            <th>Fonction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Replis circulaires</strong><br>(valvules conniventes)</td>
+                            <td>Replis permanents de muqueuse et sous-muqueuse</td>
+                            <td>×3</td>
+                            <td>Ralentit le transit, crée des turbulences</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Villosités intestinales</strong></td>
+                            <td>Excroissances digitiformes (0.5-1 mm de haut)<br>20-40 villosités/mm²</td>
+                            <td>×10</td>
+                            <td>Contient réseau capillaire et vaisseau lymphatique</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microvillosités</strong><br>(bordure en brosse)</td>
+                            <td>Prolongements cytoplasmiques (1 μm)<br>3000-6000/cellule</td>
+                            <td>×20</td>
+                            <td>Contient enzymes de digestion membranaire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SURFACE TOTALE</strong></td>
+                            <td colspan="2"><strong>≈300 m²</strong> (court de tennis)</td>
+                            <td>Optimisation maximale des échanges</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h2><i class="fas fa-truck-moving"></i> Mécanismes de Transport des Nutriments</h2>
+            
+            <table class="scientific-table">
+                <thead>
+                    <tr>
+                        <th>Nutriment</th>
+                        <th>Forme absorbée</th>
+                        <th>Mécanisme</th>
+                        <th>Transporteur spécifique</th>
+                        <th>Énergie requise</th>
+                        <th>Voie de transport</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Glucose</strong></td>
+                        <td>D-Glucose</td>
+                        <td>Co-transport avec Na⁺</td>
+                        <td>SGLT1 (sodium-glucose linked transporter)</td>
+                        <td>Secondaire (gradient Na⁺)</td>
+                        <td>Veine porte → Foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Galactose</strong></td>
+                        <td>D-Galactose</td>
+                        <td>Co-transport avec Na⁺</td>
+                        <td>SGLT1</td>
+                        <td>Secondaire</td>
+                        <td>Veine porte → Foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fructose</strong></td>
+                        <td>D-Fructose</td>
+                        <td>Diffusion facilitée</td>
+                        <td>GLUT5</td>
+                        <td>Passive</td>
+                        <td>Veine porte → Foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acides aminés</strong></td>
+                        <td>L-AA (neutres, basiques, acides)</td>
+                        <td>Co-transport avec Na⁺ (5 systèmes)</td>
+                        <td>Systèmes A, ASC, L, y⁺, b⁰,+</td>
+                        <td>Secondaire</td>
+                        <td>Veine porte → Foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acides gras à chaîne courte</strong><br>(<12 C)</td>
+                        <td>AGLC libres</td>
+                        <td>Diffusion simple</td>
+                        <td>Protéine de liaison (FABP)</td>
+                        <td>Passive</td>
+                        <td>Veine porte → Foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acides gras à chaîne longue</strong><br>(>12 C)</td>
+                        <td>2-MAG + AGLC</td>
+                        <td>Diffusion après micellisation</td>
+                        <td>Protéine de liaison (FABP)</td>
+                        <td>Passive</td>
+                        <td>Chylifères → Thoracique → Sang</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamine B12</strong></td>
+                        <td>Complexe B12-facteur intrinsèque</td>
+                        <td>Endocytose médiée par récepteur</td>
+                        <td>Récepteur cubiline (iléon)</td>
+                        <td>Active</td>
+                        <td>Veine porte → Stockage foie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Eau</strong></td>
+                        <td>Molécules H₂O</td>
+                        <td>Osmose</td>
+                        <td>Aquaporines</td>
+                        <td>Passive</td>
+                        <td>Veine porte et lymphatique</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="experiment-box">
+                <h3>Expérience : Mise en évidence de l'absorption</h3>
+                <p><strong>Technique :</strong> Analyse comparative du sang entrant et sortant de l'intestin grêle après un repas.</p>
+                
+                <table class="scientific-table">
+                    <thead>
+                        <tr>
+                            <th>Nutriment</th>
+                            <th>Sang entrant (artère mésentérique)</th>
+                            <th>Sang sortant (veine mésentérique)</th>
+                            <th>Variation</th>
+                            <th>Interprétation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Glucose</strong></td>
+                            <td>1.0 g/100 mL</td>
+                            <td>2.8 g/100 mL</td>
+                            <td>+180%</td>
+                            <td>Absorption intestinale massive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acides aminés</strong></td>
+                            <td>0.5 g/100 mL</td>
+                            <td>2.2 g/100 mL</td>
+                            <td>+340%</td>
+                            <td>Absorption protéique</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lipides totaux</strong></td>
+                            <td>0.3 g/100 mL</td>
+                            <td>0.35 g/100 mL</td>
+                            <td>+17%</td>
+                            <td>Lipides passent par voie lymphatique</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="conclusion-box">
+                    <h4>Conclusion :</h4>
+                    <p>L'augmentation significative des nutriments dans le sang veineux mésentérique prouve leur absorption intestinale. Les glucides et acides aminés passent directement dans le sang, tandis que les lipides empruntent principalement la voie lymphatique.</p>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-chart-line"></i> Cinétique d'Absorption par Segment Intestinal</h2>
+            
+            <table class="scientific-table">
+                <thead>
+                    <tr>
+                        <th>Segment intestinal</th>
+                        <th>Longueur (cm)</th>
+                        <th>Temps de transit (min)</th>
+                        <th>% Absorption glucose</th>
+                        <th>% Absorption acides aminés</th>
+                        <th>% Absorption lipides</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Duodénum</strong></td>
+                        <td>25-30</td>
+                        <td>5-10</td>
+                        <td>20-30%</td>
+                        <td>15-25%</td>
+                        <td>10-20%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jéjunum proximal</strong></td>
+                        <td>100-120</td>
+                        <td>30-60</td>
+                        <td>50-60%</td>
+                        <td>40-50%</td>
+                        <td>30-40%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jéjunum distal</strong></td>
+                        <td>80-100</td>
+                        <td>60-90</td>
+                        <td>10-15%</td>
+                        <td>15-20%</td>
+                        <td>20-25%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Iléon</strong></td>
+                        <td>150-200</td>
+                        <td>90-180</td>
+                        <td>5-10%</td>
+                        <td>10-15%</td>
+                        <td>15-25%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td>≈700</td>
+                        <td>3-6 heures</td>
+                        <td><strong>≈98%</strong></td>
+                        <td><strong>≈95%</strong></td>
+                        <td><strong>≈95%</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="conclusion-box">
+                <h3>Synthèse : Devenir des Nutriments Absorbés</h3>
+                <ul>
+                    <li><span class="highlight">Glucose, galactose, acides aminés</span> → Veine porte → Foie (régulation, stockage, distribution)</li>
+                    <li><span class="highlight">Acides gras à chaîne longue + vitamines liposolubles</span> → Chylifères → Canal thoracique → Veine sous-clavière gauche → Circulation générale</li>
+                    <li><span class="highlight">Acides gras à chaîne courte, glycérol</span> → Veine porte → Foie</li>
+                    <li><span class="highlight">Eau, minéraux, vitamines hydrosolubles</span> → Sang portal et lymphatique</li>
+                </ul>
+                <p><strong>Régulation :</strong> L'absorption est régulée par les besoins de l'organisme, les hormones digestives (CCK, sécrétine, GIP) et les mécanismes de rétrocontrôle.</p>
+            </div>
+        </section>
+        
+        <!-- Pied de page -->
+        <footer>
+            <p><strong>Cours de Biologie - Système Digestif & Aliments</strong></p>
+            <p>Document pédagogique complet • Données actualisées • Illustrations détaillées</p>
+            <p style="margin-top: 20px; color: #888; font-size: 0.9rem;">© 2023 - Sciences de la Vie - Tous droits réservés</p>
+        </footer>
+    </div>
+    
+    <!-- Boutons d'action -->
+    <div class="action-buttons">
+        <button class="action-btn" onclick="scrollToTop()" title="Retour en haut">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="action-btn" onclick="printPage()" title="Imprimer">
+            <i class="fas fa-print"></i>
+        </button>
+        <button class="action-btn" onclick="toggleDarkMode()" title="Mode sombre">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script>
+        // ===== VARIABLES GLOBALES =====
+        let currentSection = 'aliments';
+        
+        // ===== NAVIGATION ENTRE SECTIONS =====
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                switchSection(sectionId);
+            });
+        });
+        
+        function switchSection(sectionId) {
+            // Mettre à jour la section active
+            currentSection = sectionId;
+            
+            // Retirer la classe active de tous les boutons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Ajouter la classe active au bouton cliqué
+            document.querySelector(`.nav-btn[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Masquer toutes les sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Afficher la section correspondante
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mettre à jour la barre de progression
+            updateProgressBar();
+            
+            // Faire défiler vers le haut
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        // ===== BARRE DE PROGRESSION =====
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            
+            progressBar.style.width = scrollPercentage + '%';
+        }
+        
+        window.addEventListener('scroll', updateProgressBar);
+        
+        // ===== FONCTIONS UTILITAIRES =====
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function printPage() {
+            window.print();
+        }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            // Note: Pour un vrai mode sombre, il faudrait ajouter des styles supplémentaires
+        }
+        
+        // ===== ANIMATIONS AU CHARGEMENT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animer les tableaux ligne par ligne
+            document.querySelectorAll('.scientific-table tr').forEach((row, index) => {
+                row.style.animationDelay = `${index * 0.05}s`;
+            });
+            
+            // Animer les cartes de nutriments
+            document.querySelectorAll('.nutrient-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Animer les étapes de la timeline
+            document.querySelectorAll('.timeline-step').forEach((step, index) => {
+                step.style.animationDelay = `${index * 0.2}s`;
+            });
+            
+            // Initialiser la barre de progression
+            updateProgressBar();
+            
+            // Message de bienvenue dans la console
+            console.log('%c🧬 SYSTÈME DIGESTIF & ALIMENTS 🧬', 'color: #1a5f7a; font-size: 18px; font-weight: bold;');
+            console.log('%cCours interactif avec navigation complète', 'color: #159895; font-style: italic;');
+        });
+        
+        // ===== NAVIGATION AU CLAVIER =====
+        document.addEventListener('keydown', function(event) {
+            // Touche 1 : Section Aliments
+            if (event.key === '1') {
+                switchSection('aliments');
+            }
+            // Touche 2 : Section Digestion
+            else if (event.key === '2') {
+                switchSection('digestion');
+            }
+            // Touche 3 : Section Enzymes
+            else if (event.key === '3') {
+                switchSection('enzymes');
+            }
+            // Touche 4 : Section Absorption
+            else if (event.key === '4') {
+                switchSection('absorption');
+            }
+            // Touche H : Retour en haut
+            else if (event.key === 'h' || event.key === 'H') {
+                scrollToTop();
+            }
+        });
+        
+        // ===== GESTION DE L'IMPRESSION =====
+        window.addEventListener('beforeprint', function() {
+            // Afficher toutes les sections pour l'impression
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'block';
+            });
+        });
+        
+        window.addEventListener('afterprint', function() {
+            // Revenir à l'affichage normal après impression
+            switchSection(currentSection);
+        });
+        
+        // ===== SURVOL DES ÉLÉMENTS =====
+        document.querySelectorAll('.highlight, .keyword').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            el.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
